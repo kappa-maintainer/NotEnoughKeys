@@ -98,6 +98,7 @@ public class NotEnoughKeys {
         }
 
         voiceHandler = new VoiceHandler();
+        voiceHandler.init();
     }
 
     @Mod.EventHandler

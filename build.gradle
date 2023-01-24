@@ -40,6 +40,9 @@ repositories {
         name = "Jitpack"
         url = "https://jitpack.io"
     }
+    maven {
+        url "https://cursemaven.com"
+    }
 }
 
 configurations {
@@ -48,9 +51,9 @@ configurations {
 }
 
 dependencies {
-    provided "psi:Psi:release"
-    provided "autoreglib:AutoRegLib:release"
-    deobfProvided "thaumcraft:Thaumcraft:latest"
+    provided "curse.maven:psi-241665:3085917"
+    provided "curse.maven:arlib-250363:2746011"
+    deobfProvided "curse.maven:tc-223628:2629023"
     compile group: 'edu.cmu.sphinx', name: 'sphinx4-core', version:'5prealpha-SNAPSHOT'
     compile group: 'edu.cmu.sphinx', name: 'sphinx4-data', version:'5prealpha-SNAPSHOT'
     extraLibs group: 'edu.cmu.sphinx', name: 'sphinx4-core', version:'5prealpha-SNAPSHOT'
