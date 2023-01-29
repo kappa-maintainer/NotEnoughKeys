@@ -147,6 +147,9 @@ public class GuiVoiceCommand extends GuiScreen {
     @Override
     public void updateScreen() {
         super.updateScreen();
+        if (voiceCommandList == null) {
+            this.initGui();
+        }
         voiceCommandList.update();
     }
 
