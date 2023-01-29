@@ -80,7 +80,7 @@ public class PresetManager {
             for (String line : lines) {
                 if (line.startsWith("- ")) {
                     String[] split = line.split(" {3}");
-                    kbis.add(new KeyBindingInformation(split[0].substring(2), Integer.valueOf(split[1]), KeyModifier.valueOf(split[2])));
+                    kbis.add(new KeyBindingInformation(split[0].substring(2), Integer.parseInt(split[1].replace(" ", "")), KeyModifier.valueOf(split[2])));
                 } else {
                     if (kbis != null) {
                         Preset p = new Preset(kbis);
