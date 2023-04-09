@@ -95,7 +95,6 @@ fabric.properties
 .gradle/
 .idea/
 build/
-gradle/
 libs/
 run/
 src/main/resources/assets/nekeys/commands.png

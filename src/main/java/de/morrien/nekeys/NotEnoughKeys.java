@@ -169,6 +169,7 @@ public class NotEnoughKeys {
             }
         }
         if (event.getGui() instanceof GuiControls) {
+            if (presetManager == null) presetManager = new PresetManager();
             currentGui = (GuiControls) event.getGui();
 
             GuiButton extenderButton = new GuiButton(1010100, currentGui.width / 2 - 5, 18 + 24, 10, 20, "+");
@@ -184,7 +185,8 @@ public class NotEnoughKeys {
                 event.getButtonList().add(button);
             }
         } else if (currentGui != null) {
-            presetManager.getCurrentPreset().update();
+            if (presetManager != null)
+                presetManager.getCurrentPreset().update();
             currentGui = null;
         }
     }

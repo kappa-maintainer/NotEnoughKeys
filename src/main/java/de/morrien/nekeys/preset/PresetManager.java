@@ -35,17 +35,31 @@ public class PresetManager {
     }
 
     public Preset getPreset(int id) {
+        if (presets == null) {
+            try {
+                loadFromConfig();
+            } catch (IOException ignored) {}
+        }
         if (id >= 0 && id < presets.size()) {
             return presets.get(id);
         }
         return null;
     }
 
+
     public Preset getCurrentPreset() {
+        if (currentPreset == null) {
+            NotEnoughKeys.instance.presetManager.getPreset(0).load();
+        }
         return currentPreset;
     }
 
     public void saveToConfig() throws IOException {
+        if (currentPreset == null) return;
+        if (presets == null) {
+            loadFromConfig();
+            return;
+        }
         List<String> lines = new ArrayList<>();
         for (int i = 1; i <= presets.size(); i++) {
             Preset preset = presets.get(i - 1);
@@ -165,13 +179,18 @@ public class PresetManager {
             Minecraft.getMinecraft().gameSettings.saveOptions();
             KeyBinding.resetKeyBindingArrayAndHash();
             currentPreset = this;
+            if (presets == null) {
+                try {
+                    loadFromConfig();
+                } catch (IOException ignored) {}
+            }
             if (Minecraft.getMinecraft().player != null) {
                 Minecraft.getMinecraft().player.sendStatusMessage(new TextComponentTranslation("nekeys.status.preset.change", presets.indexOf(this) + 1), true);
             }
         }
 
         public void update() {
-            if (currentPreset != this) return;
+            if (currentPreset == null || currentPreset != this) return;
             keyBindingInformations = new ArrayList<>();
             for (KeyBinding keyBinding : Minecraft.getMinecraft().gameSettings.keyBindings) {
                 keyBindingInformations.add(new KeyBindingInformation(keyBinding));
@@ -189,7 +208,7 @@ public class PresetManager {
             for (KeyBinding keyBinding : Minecraft.getMinecraft().gameSettings.keyBindings) {
                 boolean found = false;
                 for (KeyBindingInformation keyBindingInformation : keyBindingInformations) {
-                    if (keyBinding.getKeyDescription().equals(keyBindingInformation)) {
+                    if (keyBinding.getKeyCode() == keyBindingInformation.keyCode) {
                         found = true;
                         break;
                     }
